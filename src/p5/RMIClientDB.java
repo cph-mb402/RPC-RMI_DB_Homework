@@ -9,7 +9,8 @@ package p5.rmiclientdb;
  * @author Dora Di
  */
 
-import java.util.*;  
+import java.io.File;
+import java.util.*;
 import java.rmi.*; 
 import p5.*;
 
@@ -18,18 +19,24 @@ public class RMIClientDB
     public static void main(String args[])throws Exception
     {  
             // name =  rmi:// + ServerIP +  /EngineName;
-            String remoteEngine = "rmi://localhost/Compute";
+            String customerEngine = "rmi://localhost/Customer";
+            String fileEngine = "rmi://localhost/Customer";
             
             // Create local stub, lookup in the registry searching for the remote engine - the interface with the methods we want to use remotely
-            BankInterface obj = (BankInterface) Naming.lookup(remoteEngine);
+            BankInterface bankObj = (BankInterface) Naming.lookup(customerEngine);
+            FileInterface fileObj = (FileInterface) Naming.lookup(fileEngine);
             
 
 
-        List<Customer> list=obj.getCustomers();  
-        for(Customer c:list)
-        {  
-            System.out.println(c.getAccnum()+ " " + c.getName() + " " + c.getAmount());  
-        }  
+//        List<Customer> list = bankObj.getCustomers();
+//        for(Customer c:list)
+//        {
+//            System.out.println(c.getAccnum()+ " " + c.getName() + " " + c.getAmount());
+//        }
+
+        File file = fileObj.getFile();
+
+        System.out.println(file.toString());
     }
   
 } 

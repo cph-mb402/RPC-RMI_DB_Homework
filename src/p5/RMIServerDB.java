@@ -31,13 +31,18 @@ public class RMIServerDB
 
             // Create engine of remote services, running on the server
             BankImpl remoteEngine = new BankImpl();
+            FileImpl fileEngine = new FileImpl();
             
             // Give a name to this engine
-            String engineName = "Compute";
+            String dbEngineName = "Customer";
+            String fileEngineName = "File";
             
             // Register the engine by the name, which later will be given to the clients
-            Naming.rebind("//localhost/" + engineName, remoteEngine);
-            System.out.println("Engine " + engineName + " bound in registry");
+            Naming.rebind("//localhost/" + dbEngineName, remoteEngine);
+            System.out.println("Engine " + dbEngineName + " bound in registry");
+
+            Naming.rebind("//localhost/" + fileEngineName, fileEngine);
+            System.out.println("Engine " + fileEngineName + " bound in registry");
         }
         catch (Exception e)
         {
